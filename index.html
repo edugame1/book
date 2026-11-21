@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>راشد والعصفور الصغير</title>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;user-select:none;-webkit-user-select:none;touch-action:none}
+body{display:flex;align-items:center;justify-content:center;overflow:hidden;
+ background:radial-gradient(circle at 50% 40%,#fff3d6,#e2c897)}
+#wrap{transition:transform .6s ease;filter:drop-shadow(0 18px 28px rgba(80,50,10,.35))}
+.in{position:absolute;inset:0;overflow:hidden;background:#fffaf0;direction:rtl}
+.in img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);pointer-events:none;-webkit-user-drag:none}
+.in::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+ box-shadow:inset 0 0 0 calc(var(--pw)*.012) #fffaf0}
+.text{position:absolute;left:4%;right:4%;bottom:4%;z-index:3;
+ background:rgba(255,253,245,.93);border-radius:calc(var(--pw)*.03);padding:1.6% 4%;
+ font-family:'Amiri',serif;font-size:calc(var(--pw)*.042);line-height:1.8;text-align:center;color:#2d2d2d;
+ box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.text.top{bottom:auto;top:4%}
+.q{color:#e3121e}
+.cover{background:#e85d2a}
+.cover::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+ background:linear-gradient(to left,rgba(0,0,0,.35),rgba(255,255,255,.18) 2.5%,transparent 6%),
+ linear-gradient(to top,rgba(0,0,0,.15),transparent 30%)}
+.cover img{object-position:center top}
+.cover .title{position:absolute;bottom:5%;left:8%;right:8%;z-index:3;text-align:center}
+.cover h1{display:inline-block;font-family:'Lalezar',cursive;font-size:calc(var(--pw)*.065);line-height:1.25;color:#fff;
+ background:#ff8a1f;padding:1% 6%;border-radius:calc(var(--pw)*.04);border:calc(var(--pw)*.008) solid #fff;
+ text-shadow:3px 3px 0 #a8410c;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.cover h1 .q{color:#e3121e;text-shadow:2px 2px 0 #fff}
+.cover .band{position:absolute;bottom:0;left:0;right:0;z-index:3;background:#ff8a1f;color:#fff;
+ font-family:'Lalezar';font-size:calc(var(--pw)*.035);text-align:center;padding:1.5%}
+.back{background:linear-gradient(160deg,#ffb347,#ff7a1f)}
+.back::after{background:linear-gradient(to right,rgba(0,0,0,.35),rgba(255,255,255,.18) 2.5%,transparent 6%)}
+.end{background:linear-gradient(#bfe6ff,#fff6dc 70%)}
+.end .sun{position:absolute;top:-8%;left:-5%;width:28%;aspect-ratio:1;border-radius:50%;background:#ffd84d;box-shadow:0 0 0 calc(var(--pw)*.02) #ffe88a66,0 0 0 calc(var(--pw)*.045) #ffe88a33}
+.end .circle{position:absolute;top:7%;left:50%;transform:translateX(-50%);width:38%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+ border:calc(var(--pw)*.012) solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.end .circle img{transform:scale(1.5);object-position:45% 30%}
+.end h2{position:absolute;bottom:13%;left:0;right:0;text-align:center;font-family:'Lalezar';font-size:calc(var(--pw)*.1);
+ color:#ff7a1f;text-shadow:3px 3px 0 #fff,5px 5px 0 #ffcf8a}
+.end p{position:absolute;bottom:5%;left:0;right:0;text-align:center;font-size:calc(var(--pw)*.035);letter-spacing:.3em}
+.stf__item{overflow:hidden}
+#rotate{display:none;position:fixed;inset:0;z-index:999;background:#fff3d6;flex-direction:column;align-items:center;justify-content:center;
+ font-family:'Lalezar';color:#ff7a1f;font-size:28px;text-align:center;gap:20px}
+#rotate .ph{width:70px;height:120px;border:6px solid #ff7a1f;border-radius:14px;animation:rot 1.6s ease-in-out infinite}
+@keyframes rot{0%,20%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
+@media (orientation:portrait) and (max-width:900px){#rotate{display:flex}}
+</style>
+</head>
+<body>
+<div id="rotate"><div class="ph"></div>لف الموبايل بالعرض<br>علشان تقرأ القصة<br><small style="font-size:18px">(اضغط هنا لملء الشاشة)</small></div>
+<div id="wrap"><div id="book"></div></div>
+<script>
+const red=s=>s.replace(/ق[ً-ْ]*/g,m=>`<span class="q">${m}</span>`);
+const story=[
+ ["img/5.png","خَرَجَ رَاشِدٌ إِلَى الْحَدِيقَةِ."],
+ ["img/4.webp","وَجَدَ رَاشِدٌ عُصْفُورًا صَغِيرًا قُرْبَ الشَّجَرَةِ."],
+ ["img/3.png","قَدَّمَ رَاشِدٌ لِلْعُصْفُورِ قَلِيلًا مِنَ الْمَاءِ."],
+ ["img/2.webp","top","شَرِبَ الْعُصْفُورُ وَطَارَ فَوْقَ الشَّجَرَةِ."],
+ ["img/7.webp","قَالَ رَاشِدٌ: مَا أَجْمَلَ الرَّحْمَةَ بِالْحَيَوَانِ!"]
+];
+let pages=[`<div class="page cover" data-density="hard"><img draggable="false" src="img/1.webp"><div class="title"><h1>${red("راشد والعصفور الصغير")}</h1></div></div>`];
+story.forEach(p=>{const top=p[1]==='top',t=p[p.length-1];pages.push(`<div class="page"><img draggable="false" src="${p[0]}"${top?' style="object-position:50% 50%;transform:none"':''}><div class="text${top?' top':''}">${red(t)}</div></div>`)});
+pages.push(`<div class="page end"><div class="sky"></div><div class="sun"></div><div class="circle"><img draggable="false" src="img/7.webp"></div><h2>النهاية</h2></div>`);
+pages.push(`<div class="page cover back" data-density="hard"></div>`);
+// كتاب عربي: نعكس الترتيب ونبدأ من آخر صفحة فيتقلب من اليمين لليسار
+pages=pages.map(h=>h.replace(/^<div class="page([^"]*)"([^>]*)>/,'<div class="page"$2><div class="in$1">')+'</div>');
+const book=document.getElementById('book');
+book.innerHTML=pages.reverse().join('');
+
+// مقاس الصفحة حسب الشاشة
+let flip=null;
+const needRotate=()=>matchMedia('(orientation:portrait) and (max-width:900px)').matches;
+function start(){
+const portrait=innerWidth<innerHeight;
+const R=1.4; let ph=innerHeight*(innerHeight<500?.92:.82), pw=ph*R;
+if(pw>innerWidth*.48){pw=innerWidth*.48;ph=pw/R}
+pw=Math.round(pw);ph=Math.round(ph);
+document.documentElement.style.setProperty('--pw',pw+'px');
+flip=new St.PageFlip(book,{width:pw,height:ph,size:"fixed",usePortrait:false,
+ showCover:true,maxShadowOpacity:.6,flippingTime:900,mobileScrollSupport:false,useMouseEvents:false,startPage:pages.length-1});
+flip.loadFromHTML(document.querySelectorAll('.page'));
+flip.on('changeState',onState);
+flip.on('flip',center);center();
+}
+// توسيط الغلاف وهو مقفول
+function center(){const i=flip.getCurrentPageIndex(),n=flip.getPageCount();
+ const pw=book.offsetWidth/2,shift=i>=n-1?pw/2:(i===0?-pw/2:0);document.getElementById("wrap").style.transform=`translateX(${shift}px)`}
+// سحب من أي مكان في الصفحة (ماوس أو لمس)
+let tx=null,ty=0,moved=false;
+const down=(x,y)=>{tx=x;ty=y;moved=false};
+const next=()=>flip.flipPrev('top'), prev=()=>flip.flipNext('top'); // كتاب عربي معكوس
+const up=(x,y)=>{
+ if(tx===null||!flip||flip.getState()!=='read'){tx=null;return}
+ const dx=x-tx,dy=y-ty;tx=null;
+ if(Math.abs(dx)>=30&&Math.abs(dx)>Math.abs(dy)){dx>0?next():prev();return}
+ if(Math.abs(dx)<10&&Math.abs(dy)<10){ // ضغطة: الشمال = التالي، اليمين = السابق
+  x<innerWidth/2?next():prev()}
+};
+addEventListener('touchstart',e=>down(e.touches[0].clientX,e.touches[0].clientY),{passive:true,capture:true});
+addEventListener('touchend',e=>up(e.changedTouches[0].clientX,e.changedTouches[0].clientY),{passive:true,capture:true});
+addEventListener('mousedown',e=>down(e.clientX,e.clientY),true);
+addEventListener('mouseup',e=>up(e.clientX,e.clientY),true);
+if(!needRotate())start();
+document.getElementById('rotate').onclick=async()=>{try{await document.documentElement.requestFullscreen();await screen.orientation.lock('landscape')}catch(e){}};
+let lastW=innerWidth;
+addEventListener("resize",()=>{clearTimeout(window._r);window._r=setTimeout(()=>{
+ if(needRotate())return; if(!flip){start();lastW=innerWidth;return}
+ if(Math.abs(innerWidth-lastW)>80)location.reload()},300)});
+
+// صوت تقليب ورق حقيقي (ملف paper.mp3)
+const snd=new Audio('paper.mp3');snd.preload='auto';
+let stopT;
+function paperSound(){clearTimeout(stopT);snd.currentTime=0;snd.play().catch(()=>{});stopT=0}
+let busy=false;
+function onState(e){if(e.data==='read'){busy=false;return} if(!busy){busy=true;paperSound()}}
+
+</script>
+</body>
+</html>
